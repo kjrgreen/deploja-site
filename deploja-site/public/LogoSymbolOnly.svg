@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+        version="1.1"
+        id="svg2"
+        width="363.18011"
+        height="446.89062"
+        viewBox="0 0 363.18013 446.89062"
+        sodipodi:docname="Deplojal BrandBook.ai"
+        xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+        xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+          id="defs6">
+  </defs>
+  <sodipodi:namedview
+          id="namedview4"
+          pagecolor="#ffffff"
+          bordercolor="#000000"
+          borderopacity="0.25"
+          inkscape:showpageshadow="2"
+          inkscape:pageopacity="0.0"
+          inkscape:pagecheckerboard="0"
+          inkscape:deskcolor="#d1d1d1"
+          showgrid="false" />
+  <g
+          id="g10"
+          inkscape:groupmode="layer"
+          inkscape:label="Page 1"
+          transform="matrix(1.3333333,0,0,-1.3333333,-972.42666,450.32678)"
+          style="fill: transparent;"
+  >
+    <path
+            d="M 0,0 H 1007.857 V 576 H 0 Z"
+            style="fill-opacity:1;fill-rule:nonzero;"
+            id="path12" />
+    <g
+            id="g32">
+      <g
+              id="g34"
+      >
+        <g
+                id="g40"
+                transform="translate(136.9346,145.3319)">
+          <path
+                  d="m 0,0 v -18.475 h 6.075 c 4.417,0 7.359,1.851 8.83,5.555 0.449,1.274 0.67,2.531 0.67,3.771 0,3.618 -1.57,6.363 -4.713,8.232 C 9.408,-0.305 8.043,0 6.772,0 Z m 2.134,8.657 h 1.709 c 5.143,0 8.681,-0.594 10.617,-1.783 3.669,-1.689 6.465,-4.689 8.381,-9.004 0.863,-2.415 1.292,-4.78 1.292,-7.094 0,-6.516 -2.735,-11.626 -8.209,-15.329 -2.846,-1.655 -6.095,-2.481 -9.751,-2.481 H -8.557 V 8.582 c 4.613,0.051 8.177,0.075 10.691,0.075"
+                  style="fill:#ffffff;stroke:green;fill-opacity:1;fill-rule:nonzero;"
+                  id="path42" />
+        </g>
+        <g
+                id="g44"
+                transform="translate(162.8036,153.8668)">
+          <path
+                  d="M 0,0 H 26.836 V -8.633 H 8.557 v -4.886 H 22.573 V -22.05 H 8.557 v -4.96 h 18.279 v -8.558 H 0 Z"
+                  style="fill:#ffffff;stroke:green;fill-opacity:1;fill-rule:nonzero;"
+                  id="path46" />
+        </g>
+        <g
+                id="g48"
+                transform="translate(199.9107,145.3084)">
+          <path
+                  d="m 0,0 v -8.184 h 7.416 c 1.835,0 3.025,0.686 3.572,2.058 0.281,0.629 0.421,1.257 0.421,1.886 v 0.323 c 0,1.65 -0.68,2.85 -2.036,3.594 C 8.744,-0.105 8.092,0 7.416,0 Z M -8.535,8.534 H 7.664 c 5.358,0 9.194,-2.612 11.508,-7.837 0.513,-1.622 0.767,-3.069 0.767,-4.342 v -0.87 c 0,-3.52 -1.362,-6.588 -4.09,-9.201 -2.3,-1.984 -5.028,-2.975 -8.185,-2.975 H 0 V -27.01 h -8.535 z"
+                  style="fill:#ffffff;stroke:green;fill-opacity:1;fill-rule:nonzero;"
+                  id="path50" />
+        </g>
+        <g
+                id="g52"
+                transform="translate(233.7901,153.8424)">
+          <path
+                  d="m 0,0 h 8.534 v -0.177 c 0,-5.092 -5.201,-14.037 -15.601,-26.836 H 8.534 v -8.531 h -26.911 v 8.531 C -7.019,-13.766 -0.891,-4.763 0,0"
+                  style="fill:#ffffff;stroke:green;fill-opacity:1;fill-rule:nonzero;"
+                  id="path54" />
+        </g>
+        <g
+                id="g56"
+                transform="translate(250.3354,136.0334)">
+          <path
+                  d="m 0,0 c 0,-2.514 0.819,-4.746 2.457,-6.696 1.766,-2.035 3.877,-3.051 6.322,-3.051 2.664,0 5.012,1.386 7.047,4.165 1.039,1.672 1.559,3.438 1.559,5.306 v 0.351 c 0,3.75 -1.651,6.679 -4.961,8.779 C 11.155,9.448 9.938,9.771 8.779,9.822 5.705,9.822 3.126,8.133 1.04,4.76 0.347,3.156 0,1.57 0,0 m 8.184,18.849 h 1.119 c 4.246,0 8.215,-1.828 11.904,-5.48 3.49,-3.921 5.233,-8.144 5.233,-12.676 v -1.39 c 0,-5.174 -2.209,-9.87 -6.623,-14.085 -2.463,-1.852 -4.664,-3.011 -6.598,-3.472 -1.702,-0.415 -3.206,-0.622 -4.515,-0.622 -5.819,0 -10.688,2.727 -14.609,8.184 -2.082,3.34 -3.126,6.812 -3.126,10.416 v 0.622 c 0,5.538 2.203,10.342 6.598,14.413 3.391,2.727 6.931,4.09 10.617,4.09"
+                  style="fill:#ffffff;stroke:green;fill-opacity:1;fill-rule:nonzero;"
+                  id="path58" />
+        </g>
+        <g
+                id="g60"
+                transform="translate(295.6512,153.8668)">
+          <path
+                  d="m 0,0 h 8.558 v -23.663 c 0,-3.738 -0.714,-6.415 -2.133,-8.036 -2.63,-3.339 -6.102,-5.011 -10.417,-5.011 h -0.672 c -3.786,0 -7.01,1.355 -9.674,4.067 -1.868,2.116 -2.802,4.549 -2.802,7.294 v 3.224 h 8.483 v -2.877 c 0,-1.424 0.737,-2.388 2.209,-2.901 0.727,-0.218 1.43,-0.323 2.106,-0.323 2.449,0 3.897,0.876 4.342,2.629 z"
+                  style="fill:#ffffff;stroke:green;fill-opacity:1;fill-rule:nonzero;"
+                  id="path62" />
+        </g>
+        <g
+                id="g64"
+                transform="translate(320.9245,143.4228)">
+          <path
+                  d="M 0,0 C -2.1,-6.034 -3.149,-9.125 -3.149,-9.275 H 3.252 V -9.2 L 0.075,0 Z M -5.531,10.318 H 5.457 c 0.149,0 0.886,-2.073 2.208,-6.224 C 7.896,3.649 11.28,-6.092 17.81,-25.124 H 8.783 l -2.555,7.318 H -6.051 c -0.098,-0.017 -0.553,-1.209 -1.365,-3.574 -0.792,-2.497 -1.248,-3.744 -1.362,-3.744 h -8.956 c 7.739,22.355 11.806,34.171 12.203,35.442"
+                  style="fill:#ffffff;stroke:green;fill-opacity:1;fill-rule:nonzero;"
+                  id="path66" />
+        </g>
+        <g
+                id="g68"
+                transform="translate(64.7626,109.7365)">
+          <path
+                  d="M 0,0 V 52.566 L 42.72,31.128 V 16.675 L 10.957,0 36.686,24.299 8.099,38.908 Z"
+                  style="fill:#ffffff;stroke:green;fill-opacity:1;fill-rule:nonzero;"
+                  id="path70" />
+        </g>
+        <g
+                id="g72">
+          <g
+                  id="g74" />
+          <g
+                  id="g86">
+            <g
+                    opacity="1"
+                    id="g84">
+              <g
+                      transform="translate(729.32,2.5771)"
+                      id="g82">
+                <path
+                        d="M 0,0 V 335.168 L 272.385,198.479 V 106.321 L 69.864,0 233.915,154.934 51.641,248.084 Z"
+                        style="fill:#ffffff;stroke:green;fill-opacity:1;fill-rule:nonzero;"
+                        id="path80"
+                        inkscape:export-filename="logoSymbolOnly.svg"
+                        inkscape:export-xdpi="27.5"
+                        inkscape:export-ydpi="27.5" />
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
