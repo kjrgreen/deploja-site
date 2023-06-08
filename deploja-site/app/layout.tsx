@@ -10,10 +10,13 @@ import {
   ICustomRichTextFields,
   IFooter,
   IFooterFields,
+  INavigationMenu,
+  INavigationMenuFields,
 } from "@/@types/generated/contentful";
 import Link from "next/link";
 import React from "react";
 import RenderRichText from "@/components/atoms/RenderRichText";
+import Navigation from "@/components/atoms/Navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -44,6 +47,15 @@ export default async function RootLayout({
       .then((res) => res.items[0] as IFooter)
   ).fields) as IFooterFields;
 
+  const navigationMenu = (await (
+    await client
+      .getEntries({
+        content_type: "navigationMenu",
+        include: 2,
+      })
+      .then((res) => res.items[0] as INavigationMenu)
+  ).fields) as INavigationMenuFields;
+
   return (
     <html lang="en" data-theme="deploja" /*className={"snap-y snap-always"}*/>
       <head>
@@ -59,6 +71,7 @@ export default async function RootLayout({
       </head>
       <body className={inter.className}>
         {children}
+        <Navigation navigationMenu={navigationMenu} />
         <footer className="footer p-10 bg-baltic text-base-content pb-0">
           <div className="flex flex-row justify-between gap-64">
             <div
@@ -77,36 +90,26 @@ export default async function RootLayout({
           </div>
         </footer>
         <footer className="footer p-10 bg-baltic text-base-content">
-          {
-            //This, but with a map from the contentful footer
-            //           <div>
-            //             <span className="footer-title">Services</span>
-            //             <a className="link link-hover">Branding</a>
-            //             <a className="link link-hover">Design</a>
-            //             <a className="link link-hover">Marketing</a>
-            //             <a className="link link-hover">Advertisement</a>
-            //           </div>
-            footer.links?.map((link) => {
-              const fields = link.fields as IColumnOfButtonsFields;
-              return (
-                <div key={link.sys.id}>
-                  <span className="footer-title">{fields.title}</span>
-                  {fields.buttons?.map((link) => {
-                    const fields = link.fields as IButtonFields;
-                    return (
-                      <Link
-                        className="link link-hover"
-                        href={fields.url}
-                        key={link.sys.id}
-                      >
-                        {fields.text}
-                      </Link>
-                    );
-                  })}
-                </div>
-              );
-            })
-          }
+          {footer.links?.map((link) => {
+            const fields = link.fields as IColumnOfButtonsFields;
+            return (
+              <div key={link.sys.id}>
+                <span className="footer-title">{fields.title}</span>
+                {fields.buttons?.map((link) => {
+                  const fields = link.fields as IButtonFields;
+                  return (
+                    <Link
+                      className="link link-hover"
+                      href={fields.url}
+                      key={link.sys.id}
+                    >
+                      {fields.text}
+                    </Link>
+                  );
+                })}
+              </div>
+            );
+          })}
         </footer>
         <div className={"h-[2px] px-10 bg-baltic"}>
           <div className={"h-full w-full " + gradientStyling} />

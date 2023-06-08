@@ -2,11 +2,12 @@ import Image from "next/image";
 
 import React from "react";
 import { EmblaCarousel } from "@/components/molecules/EmblaCarousel";
-import { ICustomRichTextFields } from "@/@types/generated/contentful";
+import {IButton, IButtonFields, ICustomRichTextFields} from "@/@types/generated/contentful";
 import { createClient } from "contentful";
 import RenderRichText from "@/components/atoms/RenderRichText";
+import Link from "next/link";
 
-export const revalidate = 20;
+export const revalidate = 60; //TODO: refactor
 
 type RichText = {
   title: string;
@@ -113,7 +114,7 @@ type FullScreenEntries = {
 // 		Title
 // 		URL
 
-const headerStyling = "w-full z-10 top-0 p-2";
+const headerStyling = "w-full z-10 top-0 p-2"; //TODO: refactor
 const gradientStyling = "bg-gradient-to-r from-wedgewood to-mint"; //TODO: refactor
 const reverseGradientStylingTransparent =
   "bg-gradient-to-l from-wedgewood/20 to-mint/20";
@@ -280,7 +281,14 @@ export default async function Home() {
     },
   ];
 
-  const customRichText = await getFirstRichText();
+  //fetch topMenu
+    const topMenu = await client.getEntries({
+        content_type: "topMenu",
+    }).then((response) => {
+        return response.items[0].fields.entries as IButton[];
+    }
+    );
+
 
   return (
     <main className={"font-roboto text-primary bg-[white]"}>
@@ -298,39 +306,19 @@ export default async function Home() {
           </div>
           <div className="navbar-center">
             <ul className="menu menu-horizontal px-1 font-bold">
-              <li>
-                <a>Item 1</a>
-              </li>
-              <li>
-                <a>Item 3</a>
-              </li>
+              {
+                topMenu?.map((item, index) => {
+                    const fields = item.fields as IButtonFields;
+                    return (
+                        <li key={index} className="menu-item">
+                        <Link className="menu-link" href={fields.url}>{fields.text}</Link>
+                        </li>
+                    );
+                    })
+              }
             </ul>
           </div>
           <div className={"navbar-end"} />
-        </div>
-      </div>
-      <div
-        id={"headerFixed"}
-        className={"pointer-events-none fixed " + headerStyling}
-      >
-        <div className={"rounded-lg flex justify-end p-2 bg-opacity-100"}>
-          <div className={""}>
-            <button className="btn btn-square btn-ghost pointer-events-auto">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="inline-block w-5 h-5 stroke-current"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                ></path>
-              </svg>
-            </button>
-          </div>
         </div>
       </div>
       {content.map((item) => {
