@@ -1,0 +1,4 @@
+//robots.txt
+//block all
+User-agent: *
+Disallow: /
