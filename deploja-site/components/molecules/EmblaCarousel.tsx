@@ -52,14 +52,14 @@ export const EmblaCarousel = ({
       <div className={` ${innerClassName ?? ""} flex`}>{modifiedChildren}</div>
       <img
         src={"/long-arrow-left.svg"}
-        className={`w-32 h-32 ml-24 absolute left-0 top-1/2 transform -translate-y-1/4 ${
+        className={`w-24 lg:w-32 h-24 lg:h-32 ml-4 lg:ml-24 absolute left-0 top-1/2 transform -translate-y-1/4 ${
           prevBtnEnabled ? "opacity-100" : "opacity-30"
         } transition-opacity duration-300`}
         onClick={scrollPrev}
       />
       <img
         src={"/long-arrow-right.svg"}
-        className={`w-32 h-32 mr-24 absolute right-0 top-1/2 transform -translate-y-1/4 ${
+        className={`w-24 lg:w-32 h-24 lg:h-32 mr-4 lg:mr-24 absolute right-0 top-1/2 transform -translate-y-1/4 ${
           nextBtnEnabled ? "opacity-100" : "opacity-30"
         } transition-opacity duration-300`}
         onClick={scrollNext}

@@ -73,7 +73,7 @@ export default async function RootLayout({
         {children}
         <Navigation navigationMenu={navigationMenu} />
         <footer className="footer p-10 bg-baltic text-base-content pb-0">
-          <div className="flex flex-row justify-between gap-64">
+          <div className="flex md:flex-row justify-between md:gap-32 lg:gap-64 flex-col gap-8 mt-8 md:mt-0">
             <div
               //grow to fill space
               className="flex-shrink"
@@ -82,14 +82,14 @@ export default async function RootLayout({
                 RichText={footer.richTextLeft?.fields as ICustomRichTextFields}
               />
             </div>
-            <div className="flex-shrink-0 max-w-[25%]">
+            <div className="flex-shrink-0 md:max-w-[25%]">
               <RenderRichText
                 RichText={footer.richTextRight?.fields as ICustomRichTextFields}
               />
             </div>
           </div>
         </footer>
-        <footer className="footer p-10 bg-baltic text-base-content">
+        <footer className="footer p-10 bg-baltic text-base-content sm:grid-flow-col">
           {footer.links?.map((link) => {
             const fields = link.fields as IColumnOfButtonsFields;
             return (

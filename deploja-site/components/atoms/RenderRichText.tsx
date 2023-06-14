@@ -142,7 +142,12 @@ function RenderRichText({ RichText }: { RichText: ICustomRichTextFields }) {
     },
   };
 
-  return <>{documentToReactComponents(RichText.richText, options)}</>;
+  return (
+    <>
+      {RichText.richText &&
+        documentToReactComponents(RichText.richText, options)}
+    </>
+  );
 }
 
 export default RenderRichText;

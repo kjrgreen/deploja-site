@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Modal } from "@/components/atoms/Modal";
 import {
   IButtonFields,
@@ -22,11 +22,36 @@ function Navigation({
 
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [y, setY] = useState(window?.scrollY ?? 0);
 
-  //When next router changes, close the drawer
+  //When next router changes, close the drawer and save the scroll position
+
   useEffect(() => {
     setIsOpen(false);
+    setY(window.scrollY);
   }, [pathname, searchParams]);
+
+  const handleNavigation = useCallback(
+    (e: any) => {
+      const window = e.currentTarget;
+      if (y > window.scrollY) {
+        console.log("scrolling up");
+      } else if (y < window.scrollY) {
+        console.log("scrolling down");
+      }
+      setY(window.scrollY);
+    },
+    [y]
+  );
+
+  useEffect(() => {
+    setY(window.scrollY);
+    window.addEventListener("scroll", handleNavigation);
+
+    return () => {
+      window.removeEventListener("scroll", handleNavigation);
+    };
+  }, [handleNavigation]);
 
   return (
     <>
@@ -34,10 +59,12 @@ function Navigation({
         id={"headerFixed"}
         className={"text-[white] pointer-events-none fixed " + headerStyling}
       >
-        <div className={"rounded-lg flex justify-end p-2 bg-opacity-100"}>
+        <div className={`rounded-lg flex justify-end p-2 bg-opacity-100`}>
           <div className={""}>
             <button
-              className="btn btn-square btn-ghost pointer-events-auto"
+              className={`btn btn-square btn-ghost pointer-events-auto bg-baltic bg-opacity-0 hover:bg-baltic ${
+                y > 300 ? " bg-opacity-30" : ""
+              }`}
               onClick={() => setIsOpen(!isOpen)}
             >
               <svg
