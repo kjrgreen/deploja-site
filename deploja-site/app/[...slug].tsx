@@ -189,7 +189,7 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
           }
         >
           <div className="navbar-start">
-            <a className="btn btn-ghost normal-case text-xl">
+            <a className="btn btn-ghost normal-case md:text-xl text-lg">
               <img src="/Logo.svg" className="h-10" />
             </a>
           </div>
@@ -227,11 +227,13 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
             const fields = item.fields as IHeroFields;
             return (
               <div
-                className={"hero h-screen snap-start text-primary"}
+                className={
+                  "hero min-h-screen md:h-screen h-auto snap-start text-primary"
+                }
                 id={`hero-${index}`}
               >
                 <video
-                  className="hero-content text-center h-screen w-screen object-cover p-0 max-w-full"
+                  className="hero-content text-center h-full md:h-screen w-screen object-cover p-0 max-w-full"
                   autoPlay
                   muted
                   loop
@@ -240,11 +242,15 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
                   <source src="/mountain-desktop.mp4" type="video/mp4" />
                   {/*Needs to support image URL and probably more than one source type*/}
                 </video>
-                <div className="hero-content p-2">
-                  <div className={"text-center card  backdrop-blur-[1px] p-4"}>
+                <div className="hero-content p-2 max-h-none">
+                  <div
+                    className={
+                      "text-center card  backdrop-blur-[1px] p-4 pt-14"
+                    }
+                  >
                     <div className="max-w-screen-lg">
                       {fields.centerText && (
-                        <div className={"py-6"}>
+                        <div className={"py-6 flex flex-col gap-6"}>
                           <RenderRichText RichText={fields.centerText.fields} />
                         </div>
                       )}
@@ -269,13 +275,13 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
             return (
               <div
                 className={
-                  "auto snap-start bg-white text-baltic flex flex-col justify-center items-center md:gap-12 py-16 px-24"
+                  "auto snap-start bg-white text-baltic flex flex-col justify-center items-center md:gap-12 py-16 px-12 lg:px-24"
                 }
                 id={`textOfferings-${index}`}
               >
                 <h1
                   className={
-                    "text-5xl font-bold font-notoSerif font-bold mr-auto pl-4"
+                    "md:text-5xl text-4xl font-bold font-notoSerif font-bold mr-auto pl-4"
                   }
                 >
                   {fields.title}
@@ -310,13 +316,13 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
             return (
               <div
                 className={
-                  "auto snap-start bg-[#fff] flex flex-col justify-center items-center md:gap-12 py-16 px-24"
+                  "auto snap-start bg-[#fff] flex flex-col justify-center items-center gap-12 py-16 lg:px-24 px-12"
                 }
               >
                 <div className={"text-center text-baltic"}>
                   <h1
                     className={
-                      "text-5xl font-bold font-notoSerif font-bold mr-auto pl-4 mb-4"
+                      "md:text-5xl text-4xl font-bold font-notoSerif font-bold mr-auto pl-4 mb-4"
                     }
                   >
                     {fields.title}
@@ -341,7 +347,7 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
                           className={"w-full object-cover rounded-t-lg"}
                         ></img>
                         <div className={"p-4 pr-8"}>
-                          <h1 className={"text-2xl font-bold mb-2"}>
+                          <h1 className={"md:text-2xl text-xl font-bold mb-2"}>
                             {offering.fields.title}
                           </h1>
                           <p
@@ -378,39 +384,39 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
                   <div
                     key={id}
                     className={
-                      "text-center w-full py-12 lg:px-64 px-32 flex-row"
+                      "text-center w-full py-12 lg:px-64 sm:px-32 px-4 flex-row"
                     }
                   >
                     <img
                       src={testimonial.fields.portrait?.fields.file.url}
                       className={
-                        "rounded-full w-48 h-48 mx-auto mb-4 object-cover object-center"
+                        "rounded-full w-48 h-auto mx-auto mb-4 object-cover object-center"
                       }
                     ></img>
                     <p
                       className={
-                        "text-5xl font-bold font-notoSerif font-bold mr-auto pl-4 mb-8"
+                        "md:text-5xl sm:text-4xl text-2xl font-bold font-notoSerif font-bold mr-auto pl-4 mb-8"
                       }
                     >
                       {testimonial.fields.quote}
                     </p>
                     <p
                       className={
-                        "text-2xl font-bold font-bold mr-auto pl-4 mb-2"
+                        "md:text-2xl sm:text-xl text-base font-bold font-bold mr-auto pl-4 mb-2"
                       }
                     >
                       {testimonial.fields.name}
                     </p>
                     <p
                       className={
-                        "text-l opacity-50 font-bold font-bold mr-auto pl-4 mb-1"
+                        "text-sm sm:text-lg opacity-50 font-bold font-bold mr-auto pl-4 mb-1"
                       }
                     >
                       {testimonial.fields.role}
                     </p>
                     <p
                       className={
-                        "text-l opacity-50 font-bold font-bold mr-auto pl-4 mb-4"
+                        "text-sm sm:text-lg opacity-50 font-bold font-bold mr-auto pl-4 mb-4"
                       }
                     >
                       {testimonial.fields.company}
@@ -507,7 +513,7 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
                       " bg-opacity-50 backdrop-blur-[1px] block p-4 rounded-lg"
                     }
                   >
-                    <h1 className="text-5xl font-bold font-notoSerif font-bold">
+                    <h1 className="md:text-5xl text-4xl font-bold font-notoSerif font-bold">
                       {item.richText.title}
                     </h1>
                     <p className="py-6">{item.richText.description}</p>

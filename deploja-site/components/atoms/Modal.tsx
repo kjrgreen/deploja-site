@@ -37,12 +37,15 @@ export const Modal = ({
   return (
     <dialog
       ref={outerRef}
-      className={`modal modal-bottom sm:modal-middle`}
+      className={`modal modal-middle p-4`}
       onCancel={() => {
         onClose();
       }}
     >
-      <div className="modal-box bg-neutral-200 !max-w-none !w-auto" ref={ref}>
+      <div
+        className="modal-box bg-neutral-200 !max-w-screen sm:!max-w-none !w-auto"
+        ref={ref}
+      >
         {children}
       </div>
     </dialog>

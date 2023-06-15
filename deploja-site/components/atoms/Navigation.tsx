@@ -91,8 +91,16 @@ function Navigation({
           setIsOpen(false);
         }}
       >
-        <div className={"flex justify-between gap-64"}>
-          <div className={"card bg-baltic p-8"}>
+        <div
+          className={
+            "flex sm:flex-row justify-between gap-8 sm:gap-12 md:gap-18 lg:gap-52"
+          }
+        >
+          <div
+            className={
+              "card bg-baltic p-4 md:p-8 justify-center sm:flex-shrink-0 flex-shrink hidden sm:flex"
+            }
+          >
             <RenderRichText
               RichText={
                 navigationMenu.cardRichText?.fields as ICustomRichTextFields
@@ -105,11 +113,15 @@ function Navigation({
               {(navigationMenu.cardButton?.fields as IButtonFields).text}
             </Link>
           </div>
-          <div className={"flex justify-between gap-8"}>
+          <div
+            className={
+              "flex flex-col sm:flex-row justify-between gap-4 sm:gap-8"
+            }
+          >
             {
               //This, but with a map from the contentful footer
               //           <div>
-              //             <span className="text-lg">Services</span>
+              //             <span className="md:text-lg text-base">Services</span>
               //             <a className="link link-hover">Branding</a>
               //             <a className="link link-hover">Design</a>
               //             <a className="link link-hover">Marketing</a>
@@ -119,7 +131,9 @@ function Navigation({
                 const fields = column.fields as IColumnOfButtonsFields;
                 return (
                   <div key={column.sys.id} className={"flex flex-col"}>
-                    <span className="text-4xl mb-2">{fields.title}</span>
+                    <span className="md:text-4xl text-3xl mb-2">
+                      {fields.title}
+                    </span>
                     {fields.buttons?.map((link) => {
                       const fields = link.fields as IButtonFields;
                       return (

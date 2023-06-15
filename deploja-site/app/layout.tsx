@@ -72,8 +72,8 @@ export default async function RootLayout({
       <body className={inter.className}>
         {children}
         <Navigation navigationMenu={navigationMenu} />
-        <footer className="footer p-10 bg-baltic text-base-content pb-0">
-          <div className="flex md:flex-row justify-between md:gap-32 lg:gap-64 flex-col gap-8 mt-8 md:mt-0">
+        <footer className="footer p-12 lg:p-24 bg-baltic text-base-content pb-0 lg:pb-0">
+          <div className="flex md:flex-row justify-between md:gap-32 lg:gap-52 flex-col gap-8 mt-8 md:mt-0">
             <div
               //grow to fill space
               className="flex-shrink"
@@ -89,7 +89,7 @@ export default async function RootLayout({
             </div>
           </div>
         </footer>
-        <footer className="footer p-10 bg-baltic text-base-content sm:grid-flow-col">
+        <footer className="footer p-12 lg:p-24 bg-baltic text-base-content sm:grid-flow-col">
           {footer.links?.map((link) => {
             const fields = link.fields as IColumnOfButtonsFields;
             return (
@@ -111,10 +111,10 @@ export default async function RootLayout({
             );
           })}
         </footer>
-        <div className={"h-[2px] px-10 bg-baltic"}>
+        <div className={"h-[2px] px-12 lg:px-24 bg-baltic"}>
           <div className={"h-full w-full " + gradientStyling} />
         </div>
-        <footer className="footer px-10 py-4 bg-baltic text-primary">
+        <footer className="footer px-12 lg:px-24 py-4 bg-baltic text-primary">
           <div className="items-center grid-flow-col">
             <p>
               {footer.copyrightText}
