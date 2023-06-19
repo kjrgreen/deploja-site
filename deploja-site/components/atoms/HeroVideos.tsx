@@ -11,6 +11,8 @@ export const HeroVideos = ({ fields }: { fields: IHeroFields }) => {
     lg: 1024,
   };
 
+  if (width < 1) return null;
+
   if (width > defaultBreakpoints.lg) {
     return (
       <video
