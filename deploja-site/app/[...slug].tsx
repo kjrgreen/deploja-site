@@ -19,6 +19,7 @@ import { createClient } from "contentful";
 import RenderRichText from "@/components/atoms/RenderRichText";
 import Link from "next/link";
 import { json } from "stream/consumers";
+import { HeroVideos } from "@/components/atoms/HeroVideos";
 
 export const revalidate = 60; //TODO: refactor
 
@@ -232,16 +233,8 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
                 }
                 id={`hero-${index}`}
               >
-                <video
-                  className="hero-content text-center h-full md:h-screen w-screen object-cover p-0 max-w-full"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                >
-                  <source src="/mountain-desktop.mp4" type="video/mp4" />
-                  {/*Needs to support image URL and probably more than one source type*/}
-                </video>
+                <HeroVideos fields={fields} />
+
                 <div className="hero-content p-2 max-h-none">
                   <div
                     className={
