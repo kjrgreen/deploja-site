@@ -5,6 +5,8 @@ import { EmblaCarousel } from "@/components/molecules/EmblaCarousel";
 import {
   IButton,
   IButtonFields,
+  IContactFormFields,
+  IContactUsBlockFields,
   ICustomRichTextFields,
   IHero,
   IHeroFields,
@@ -20,6 +22,10 @@ import RenderRichText from "@/components/atoms/RenderRichText";
 import Link from "next/link";
 import { json } from "stream/consumers";
 import { HeroVideos } from "@/components/atoms/HeroVideos";
+import ContactForm from "@/components/organisms/ContactForm";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPhone } from "@fortawesome/free-solid-svg-icons/faPhone";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 export const revalidate = 60; //TODO: refactor
 
@@ -159,6 +165,8 @@ const getFirstRichText = async () =>
       return response.items[0].fields;
     });
 
+const blockPadding = "py-16 px-12 lg:px-24";
+
 export default async function Home({ params }: { params: { slug: string[] } }) {
   //fetch topMenu
   const topMenu = await client
@@ -267,9 +275,7 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
             if (!fields.offerings || fields.offerings.length == 0) return null;
             return (
               <div
-                className={
-                  "auto snap-start bg-white text-baltic flex flex-col justify-center items-center md:gap-12 py-16 px-12 lg:px-24"
-                }
+                className={`auto snap-start bg-white text-baltic flex flex-col justify-center items-center md:gap-12 ${blockPadding}`}
                 id={`textOfferings-${index}`}
               >
                 <h1
@@ -308,9 +314,7 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
             const fields = item.fields as IOfferingsFields;
             return (
               <div
-                className={
-                  "auto snap-start bg-[#fff] flex flex-col justify-center items-center gap-12 py-16 lg:px-24 px-12"
-                }
+                className={`auto snap-start bg-[#fff] flex flex-col justify-center items-center gap-12 ${blockPadding}`}
               >
                 <div className={"text-center text-baltic"}>
                   <h1
@@ -417,6 +421,63 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
                   </div>
                 ))}
               </EmblaCarousel>
+            );
+          }
+          case "ContactUsBlock": {
+            const fields = item.fields as IContactUsBlockFields;
+            return (
+              <div
+                className={`flex flex-col justify-center items-center gap-4 ${blockPadding}`}
+              >
+                <div
+                  className={
+                    "flex flex-row justify-center items-center gap-4 w-full text-center flex-wrap sm:flex-nowrap"
+                  }
+                >
+                  <div
+                    className={
+                      "text-lg w-full card bg-wedgewood p-4 flex items-center"
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faPhone}
+                      className={
+                        "w-full h-full max-w-[32px] lg:max-w-[48px] px-[auto] mb-2"
+                      }
+                    />
+                    <h1 className={"text-2xl font-bold"}>Call Us</h1>
+                    {fields.ourPhoneNumbers?.map((phoneNumber, id) => (
+                      <a
+                        key={id}
+                        href={`tel:${phoneNumber.replace(/[\s-]/g, "")}`}
+                      >
+                        {phoneNumber}
+                      </a>
+                    ))}
+                  </div>
+                  <div
+                    className={"w-full card bg-wedgewood p-4 flex items-center"}
+                  >
+                    <FontAwesomeIcon
+                      icon={faEnvelope}
+                      className={
+                        "w-full h-full max-w-[32px] lg:max-w-[48px] px-[auto] mb-2"
+                      }
+                    />
+                    <h1 className={"text-2xl font-bold"}>Email Us</h1>
+                    {fields.ourEmails?.map((email, id) => (
+                      <a key={id} href={`mailto:${email}`}>
+                        {email}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                {
+                  /* @ts-expect-error Server Component */
+                  <ContactForm />
+                }
+              </div>
             );
           }
           default:
