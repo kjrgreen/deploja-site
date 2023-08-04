@@ -13,9 +13,11 @@ import {
   IOfferingsFields,
   IPage,
   IPageFields,
+  IRichTextBesidesImageFields,
   ITestimonialsFields,
   ITextOfferingsFields,
   ITopMenu,
+  LOCALE_CODE,
 } from "@/@types/generated/contentful";
 import { createClient } from "contentful";
 import RenderRichText from "@/components/atoms/RenderRichText";
@@ -26,78 +28,74 @@ import ContactForm from "@/components/organisms/ContactForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons/faPhone";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import Head from "next/head";
+import { Metadata, ResolvingMetadata } from "next";
 
+const client = createClient({
+  space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID as string,
+  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN as string,
+});
 export const revalidate = 60; //TODO: refactor
+export async function generateMetadata(
+  {
+    params,
+    searchParams,
+  }: {
+    searchParams: any;
+    params: { slug: string[] };
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const page = await client
+    .getEntries({
+      content_type: "page",
+      "fields.url": "/" + params.slug.join("/"),
+      include: 10,
+      locale: process.env.NEXT_PUBLIC_LOCALE,
+    })
+    .then((response) => {
+      return (response.items[0] as IPage).fields as IPageFields;
+    });
 
-type thisType<T> = {
-  something: ThisType<T>;
-};
+  //Refactor this into the next 13 equivalent
+  //<Head>
+  //         <title>{page.pageTitle} | Deploja</title>
+  //         <meta name="description" content={page.seoDescription} />
+  //         <meta name="keywords" content={page.seoKeywords.join(", ")} />
+  //         {
+  //           //Open Graph
+  //         }
+  //         <meta property="og:title" content={page.pageTitle} />
+  //         <meta property="og:type" content="website" />
+  //         <meta
+  //           property="og:url"
+  //           content={process.env.NEXT_PUBLIC_BASE_URL + page.url}
+  //         />
+  //         <meta property="og:image" content={page.seoImage.fields.file.url} />
+  //         <meta property="og:description" content={page.seoDescription} />
+  //         <meta property="og:locale" content={process.env.NEXT_PUBLIC_LOCALE} />
+  //       </Head>
+  return {
+    title: page.pageTitle + " - Deploja",
+    openGraph: {
+      type: "website",
+      url: process.env.NEXT_PUBLIC_BASE_URL + page.url,
+      title: page.pageTitle + " - Deploja",
+      description: page.seoDescription,
+      images: [
+        {
+          url: page.seoImage.fields.file.url,
+        },
+      ],
+      locale: process.env.NEXT_PUBLIC_LOCALE,
+    },
+    description: page.seoDescription,
+    keywords: page.seoKeywords,
+  };
+}
 
-const foo = {} as IHero;
-const bar = ({} as thisType<typeof foo>).something;
 const fooFields = {} as IHeroFields;
 fooFields.centerText;
-
-type RichText = {
-  title: string;
-  description: string;
-  light: boolean;
-  //Needs to actually be rich text
-};
-
-type Button = {
-  button: string;
-  buttonURL: string;
-};
-
-type RichTextWithButton = RichText & Button;
-
-type HeroBlock = {
-  type: "Hero";
-  videoURL?: string;
-  imageURL?: string;
-  richText: RichTextWithButton;
-};
-
-type HeroWithFigureBlock = {
-  type: "HeroWithFigure";
-  videoURL?: string;
-  imageURL?: string;
-  reverse: boolean;
-  richText: RichTextWithButton;
-  figureImageURL: string;
-};
-
-type OfferingCard = {
-  imageURL: string;
-  title: string;
-  URL: string;
-};
-
-type OfferingsBlock = {
-  type: "Offerings";
-  richText: RichText;
-  cards: OfferingCard[];
-};
-
-type TextOfferingsBlock = {
-  type: "TextOfferings";
-  title: string;
-  cards: RichText[];
-  buttons: Button[];
-};
-
-type TestimonialsBlock = {
-  type: "Testimonials";
-  ariaLabel: string;
-  testimonials: {
-    imageURL: string;
-    quote: string;
-    name: string;
-    title: string;
-    title2?: string;
-  }[];
-};
 
 //Footer:
 // 	Rich text left
@@ -105,16 +103,6 @@ type TestimonialsBlock = {
 // 	Buttons
 // 	Social media links - its own content model which we can render differently in different places
 // 	Simple text for copyright
-type Footer = {
-  richTextLeft: RichText;
-  richTextRight: RichText;
-  buttons: Button[];
-  socialMediaLinks: {
-    type: "instagram" | "facebook" | "linkedin" | "twitter";
-    URL: string;
-  };
-  simpleText: string;
-};
 
 // Full screen entries
 // 	Column with title
@@ -124,15 +112,6 @@ type Footer = {
 // 	Rich text in card
 // 	Card button text
 // 	Card button URL
-type FullScreenEntries = {
-  columns: {
-    title: string;
-    buttons: Button[];
-  }[];
-  richText: RichText;
-  cardButton: Button;
-};
-
 // Hero header
 // 	Entries
 // 		Title
@@ -148,23 +127,6 @@ const gradientStyling = "bg-gradient-to-r from-wedgewood to-mint"; //TODO: refac
 const reverseGradientStylingTransparent =
   "bg-gradient-to-l from-wedgewood/20 to-mint/20";
 
-//Fetch the first Custom Rich Text content available using the contentful client
-//Note that we are using Next.js 13, so we do not use getStaticProps
-const client = createClient({
-  space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID as string,
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN as string,
-});
-
-const getFirstRichText = async () =>
-  await client
-    .getEntries({
-      content_type: "customRichText",
-    })
-    .then((response) => {
-      console.log("fetched customRichText");
-      return response.items[0].fields;
-    });
-
 const blockPadding = "py-16 px-12 lg:px-24";
 
 export default async function Home({ params }: { params: { slug: string[] } }) {
@@ -172,6 +134,7 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
   const topMenu = await client
     .getEntries({
       content_type: "topMenu",
+      locale: process.env.NEXT_PUBLIC_LOCALE,
     })
     .then((response) => {
       return (response.items[0] as ITopMenu).fields.entries;
@@ -181,8 +144,9 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
   const page = await client
     .getEntries({
       content_type: "page",
-      "fields.url": params.slug.join("/"),
+      "fields.url": "/" + params.slug.join("/"),
       include: 10,
+      locale: process.env.NEXT_PUBLIC_LOCALE,
     })
     .then((response) => {
       return (response.items[0] as IPage).fields as IPageFields;
@@ -194,13 +158,16 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
         <div
           className={
             "rounded-lg flex justify-between p-2 backdrop-blur-[2px] " +
-            reverseGradientStylingTransparent
+            (page.showPageTitle ? "" : reverseGradientStylingTransparent)
           }
         >
           <div className="navbar-start">
-            <a className="btn btn-ghost normal-case md:text-xl text-lg">
+            <Link
+              href={"/"}
+              className="btn btn-ghost normal-case md:text-xl text-lg"
+            >
               <img src="/Logo.svg" className="h-10" />
-            </a>
+            </Link>
           </div>
           <div className="navbar-center hidden md:block">
             <ul className="menu menu-horizontal px-1 font-bold">
@@ -222,12 +189,32 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
           <div className={"navbar-end"} />
         </div>
       </div>
+      {page.showPageTitle && (
+        <div
+          className={
+            "font-notoSerif w-full flex flex-col justify-center items-center bg-wedgewood pt-[84px] pb-4"
+          }
+        >
+          <hr className={"w-full opacity-50"} />
+          <div className={"flex flex-col justify-center items-center py-4"}>
+            <div className={"flex flex-col justify-center items-center gap-2"}>
+              <h1 className={"text-5xl text-center text-white"}>
+                {page.pageTitle}
+              </h1>
+              <p className={"text-2xl text-center text-white"}>
+                {page.pageSubtitle}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {page.content?.map((item, index) => {
         switch (item.sys.contentType.sys.id) {
           case "customRichText": {
             const fields = item.fields as ICustomRichTextFields;
             return (
-              <div>
+              <div className={`${blockPadding} flex flex-col gap-2`}>
                 <RenderRichText RichText={fields} />
               </div>
             );
@@ -255,15 +242,17 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
                           <RenderRichText RichText={fields.centerText.fields} />
                         </div>
                       )}
-                      {fields.buttons?.map((button, index) => (
-                        <Link
-                          className="btn btn-primary"
-                          key={button.sys.id}
-                          href={button.fields.url}
-                        >
-                          {button.fields.text}
-                        </Link>
-                      ))}
+                      <div className={"flex flex-row justify-center gap-2"}>
+                        {fields.buttons?.map((button, index) => (
+                          <Link
+                            className="btn btn-primary"
+                            key={button.sys.id}
+                            href={button.fields.url}
+                          >
+                            {button.fields.text}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -278,17 +267,17 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
                 className={`auto snap-start bg-white text-baltic flex flex-col justify-center items-center md:gap-12 ${blockPadding}`}
                 id={`textOfferings-${index}`}
               >
-                <h1
+                <h2
                   className={
-                    "md:text-5xl text-4xl font-bold font-notoSerif font-bold mr-auto pl-4"
+                    "ml-auto md:text-5xl text-4xl font-bold font-notoSerif font-bold mr-auto pl-4"
                   }
                 >
                   {fields.title}
-                </h1>
+                </h2>
                 <div className={"grid-cols-1 lg:grid-cols-3 grid"}>
                   {fields.offerings?.map((offering, id) => {
                     return (
-                      <div key={id} className={"card p-4"}>
+                      <div key={id} className={"card p-4 text-center"}>
                         {<RenderRichText RichText={offering.fields} />}
                       </div>
                     );
@@ -328,40 +317,45 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
                 </div>
                 <div
                   className={
-                    "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 grid gap-x-12 gap-y-10 w-full  text-primary"
+                    "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 grid gap-x-12 lg:gap-x-18 xl:gap-x-24 gap-y-10 w-full  text-primary"
                   }
                 >
                   {fields.offerings?.map((offering, id) => {
                     return (
-                      <div
-                        key={id}
-                        className={
-                          "card bg-neutral-200 w-full mr-auto ml-auto bg-wedgewood"
-                        }
-                      >
-                        <img
-                          src={offering.fields.image?.fields.file.url}
-                          className={"w-full object-cover rounded-t-lg"}
-                        ></img>
-                        <div className={"p-4 pr-8"}>
-                          <h1 className={"md:text-2xl text-xl font-bold mb-2"}>
-                            {offering.fields.title}
-                          </h1>
-                          <p
+                      <Link key={id} href={offering.fields.url}>
+                        <div
+                          className={
+                            "card bg-neutral-200 w-full mr-auto ml-auto bg-wedgewood max-w-[250px]"
+                          }
+                        >
+                          <img
+                            src={offering.fields.image?.fields.file.url}
                             className={
-                              "flex w-full items-center justify-between"
+                              "w-full object-cover rounded-t-lg max-h-72"
                             }
-                          >
-                            I18N read more{" "}
-                            <img
-                              src={"/long-arrow-right.svg"}
+                          ></img>
+                          <div className={"p-4 pr-8"}>
+                            <h1
+                              className={"md:text-2xl text-xl font-bold mb-2"}
+                            >
+                              {offering.fields.title}
+                            </h1>
+                            <p
                               className={
-                                "h-auto absolute right-0 bottom-0 transform md:translate-y-12 md:w-32 hidden md:block"
+                                "flex w-full items-center justify-between"
                               }
-                            />
-                          </p>
+                            >
+                              {fields.readMoreLabel}
+                              <img
+                                src={"/long-arrow-right.svg"}
+                                className={
+                                  "h-auto absolute right-0 bottom-0 transform md:translate-y-12 md:w-32 hidden md:block"
+                                }
+                              />
+                            </p>
+                          </div>
                         </div>
-                      </div>
+                      </Link>
                     );
                   })}
                 </div>
@@ -477,6 +471,41 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
                   /* @ts-expect-error Server Component */
                   <ContactForm />
                 }
+              </div>
+            );
+          }
+          case "richTextBesidesImage": {
+            const fields = item.fields as IRichTextBesidesImageFields;
+            return (
+              <div
+                className={`flex flex-wrap sm:flex-nowrap 
+                    ${fields.richTextOnRight ? "flex-row" : "flex-row-reverse"}
+                     gap-4 ${blockPadding}`}
+              >
+                <div
+                  className={
+                    "basis-full h-64 sm:h-[unset] sm:flex-1 min-h-[400px]"
+                  }
+                >
+                  <div
+                    className={"h-full w-full relative [&>*]:object-contain"}
+                  >
+                    <Image
+                      src={`https:${fields.image?.fields.file.url}`}
+                      alt={fields.image?.fields.description}
+                      fill={true}
+                    />
+                  </div>
+                </div>
+                <div
+                  className={
+                    "basis-full sm:flex-1 flex justify-center items-center"
+                  }
+                >
+                  <div>
+                    <RenderRichText RichText={fields.richText.fields} />
+                  </div>
+                </div>
               </div>
             );
           }

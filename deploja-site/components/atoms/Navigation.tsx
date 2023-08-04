@@ -34,11 +34,6 @@ function Navigation({
   const handleNavigation = useCallback(
     (e: any) => {
       const window = e.currentTarget;
-      if (y > window.scrollY) {
-        console.log("scrolling up");
-      } else if (y < window.scrollY) {
-        console.log("scrolling down");
-      }
       setY(window.scrollY);
     },
     [y]
@@ -96,23 +91,25 @@ function Navigation({
             "flex sm:flex-row justify-between gap-8 sm:gap-12 md:gap-18 lg:gap-52"
           }
         >
-          <div
-            className={
-              "card bg-baltic p-4 md:p-8 justify-center sm:flex-shrink-0 flex-shrink hidden sm:flex"
-            }
-          >
-            <RenderRichText
-              RichText={
-                navigationMenu.cardRichText?.fields as ICustomRichTextFields
+          {navigationMenu.cardRichText && (
+            <div
+              className={
+                "card bg-baltic p-4 md:p-8 justify-center sm:flex-shrink-0 flex-shrink hidden sm:flex"
               }
-            />
-            <Link
-              href={(navigationMenu.cardButton?.fields as IButtonFields).url}
-              className={"btn btn-primary mt-4"}
             >
-              {(navigationMenu.cardButton?.fields as IButtonFields).text}
-            </Link>
-          </div>
+              <RenderRichText
+                RichText={
+                  navigationMenu.cardRichText?.fields as ICustomRichTextFields
+                }
+              />
+              <Link
+                href={(navigationMenu.cardButton?.fields as IButtonFields).url}
+                className={"btn btn-primary mt-4"}
+              >
+                {(navigationMenu.cardButton?.fields as IButtonFields).text}
+              </Link>
+            </div>
+          )}
           <div
             className={
               "flex flex-col sm:flex-row justify-between gap-4 sm:gap-8"

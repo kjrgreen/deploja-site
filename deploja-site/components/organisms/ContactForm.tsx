@@ -11,10 +11,10 @@ const client = createClient({
 
 export default async function ContactForm() {
   //Fetch the first ContactForm contentful entry
-  //TODO: localize, along with every other use of client
   const contactForm = await client
     .getEntries({
       content_type: "contactForm",
+      locale: process.env.NEXT_PUBLIC_LOCALE,
     })
     .then((response) => response.items[0].fields as IContactFormFields);
 

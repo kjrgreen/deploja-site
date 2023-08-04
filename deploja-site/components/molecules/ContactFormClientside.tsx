@@ -43,7 +43,6 @@ export default function ContactFormClientside({
 }: {
   contactForm: IContactFormFields;
 }) {
-  console.log(contactForm, "contactForm");
   const {
     register,
     handleSubmit,
@@ -70,75 +69,88 @@ export default function ContactFormClientside({
       name="contact"
       method="POST"
       data-netlify="true"
-      className="card bg-wedgewood w-full p-6 pt-4"
+      className="card bg-wedgewood w-full p-6 pt-4 gap-y-2"
     >
       <input type="hidden" name="form-name" value="contact" />
       {/*A daisyUI input and error tooltip*/}
-      <div>
-        <label className="label">
-          <span className="label-text text-[white]">{contactForm.name}</span>
-        </label>
-        <input
-          type="text"
-          //no placeholder, do not use placeholder for labels, use labels for labels only
-          className="input input-bordered"
-          {...register("name")}
-        />
-        <p className="text-xs text-error mt-2">
-          {errors.name?.message === "nameError" && contactForm.nameError}
-        </p>
+      <div className={"flex gap-x-4 gap-y-2 flex-wrap justify-between"}>
+        <div className={"basis-0 max-[485px]:basis-full flex-grow"}>
+          <label className="label">
+            <span className="label-text text-[white]">{contactForm.name}</span>
+          </label>
+          <input
+            type="text"
+            //no placeholder, do not use placeholder for labels, use labels for labels only
+            className="input w-full input-bordered"
+            {...register("name")}
+          />
+          <p className="text-xs text-error mt-2">
+            {errors.name?.message === "nameError" && contactForm.nameError}
+          </p>
+        </div>
+        <div className="gap-y-2 basis-0 max-[485px]:basis-full flex-grow">
+          <label className="label">
+            <span className="label-text text-[white]">{contactForm.email}</span>
+          </label>
+          <input
+            type="text"
+            //no placeholder, do not use placeholder for labels, use labels for labels only
+            className="input w-full input-bordered"
+            {...register("email")}
+          />
+          <p className="text-xs text-error mt-2">
+            {errors.email?.message === "emailError" && contactForm.emailError}
+          </p>
+        </div>
       </div>
-      <div className="mt-2">
-        <label className="label">
-          <span className="label-text text-[white]">{contactForm.email}</span>
-        </label>
-        <input
-          type="text"
-          //no placeholder, do not use placeholder for labels, use labels for labels only
-          className="input input-bordered"
-          {...register("email")}
-        />
-        <p className="text-xs text-error mt-2">
-          {errors.email?.message === "emailError" && contactForm.emailError}
-        </p>
+      <div className={"flex gap-x-4 gap-y-1 flex-wrap justify-between"}>
+        <div className="basis-0 max-[485px]:basis-full flex-grow gap-y-2">
+          <label className="label">
+            <span className="label-text text-[white]">
+              {contactForm.subject}
+            </span>
+          </label>
+          <select
+            className="w-full select select-bordered"
+            {...register("subject")}
+          >
+            <option className={"text-[black]"} value="workForUs">
+              {contactForm.workForUs}
+            </option>
+            <option className={"text-[black]"} value="iNeedConsultants">
+              {contactForm.needConsultants}
+            </option>
+            <option className={"text-[black]"} value="other">
+              {contactForm.other}
+            </option>
+          </select>
+          <p className="text-xs text-error mt-2">
+            {errors.subject?.message === "subjectError" &&
+              contactForm.subjectError}
+          </p>
+        </div>
+        <div className="basis-0 max-[485px]:basis-full flex-grow gap-y-2">
+          <label className="label">
+            <span className="label-text text-[white]">{contactForm.phone}</span>
+          </label>
+          <input
+            type="text"
+            //no placeholder, do not use placeholder for labels, use labels for labels only
+            className="input w-full input-bordered"
+            {...register("phone")}
+          />
+          <p className="text-xs text-error mt-2">
+            {errors.phone?.message === "phoneError" && contactForm.phoneError}
+          </p>
+        </div>
       </div>
-      <div className="mt-2">
-        <label className="label">
-          <span className="label-text text-[white]">{contactForm.subject}</span>
-        </label>
-        <select className="select select-bordered" {...register("subject")}>
-          <option value="workForUs">{contactForm.workForUs}</option>
-          <option value="iNeedConsultants">
-            {contactForm.needConsultants}
-          </option>
-          <option value="other">{contactForm.other}</option>
-        </select>
-        <p className="text-xs text-error mt-2">
-          {errors.subject?.message === "subjectError" &&
-            contactForm.subjectError}
-        </p>
-      </div>
-      <div className="mt-2">
-        <label className="label">
-          <span className="label-text text-[white]">{contactForm.phone}</span>
-        </label>
-        <input
-          type="text"
-          //no placeholder, do not use placeholder for labels, use labels for labels only
-          className="input input-bordered"
-          {...register("phone")}
-        />
-        <p className="text-xs text-error mt-2">
-          {errors.phone?.message === "phoneError" && contactForm.phoneError}
-        </p>
-      </div>
-      <div className="mt-2">
+      <div className="gap-y-2">
         <label className="label">
           <span className="label-text text-[white]">{contactForm.message}</span>
         </label>
         <textarea
           //no placeholder, do not use placeholder for labels, use labels for labels only
-          className="textarea textarea-bordered"
+          className="w-full textarea textarea-bordered"
           {...register("message")}
         />
         <p className="text-xs text-error mt-1">
@@ -146,7 +158,7 @@ export default function ContactFormClientside({
             contactForm.messageError}
         </p>
       </div>
-      <div className="mt-2">
+      <div className="gap-y-2">
         <button
           type="submit"
           className="btn btn-primary btn-sm"
@@ -159,7 +171,7 @@ export default function ContactFormClientside({
           )}
         </button>
         {submitStatus === "success" && (
-          <p className="text-xs text-green-500">{contactForm.successMessage}</p>
+          <p className="text-xs gap-y-2">{contactForm.successMessage}</p>
         )}
         {submitStatus === "error" && (
           <p className="text-xs text-error mt-2">{contactForm.errorMessage}</p>

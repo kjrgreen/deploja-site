@@ -43,7 +43,7 @@ export const Modal = ({
       }}
     >
       <div
-        className="modal-box bg-neutral-200 !max-w-screen sm:!max-w-none !w-auto"
+        className="modal-box bg-neutral-200 !max-w-screen sm:!max-w-none !w-auto md:p-16 xl:p-32"
         ref={ref}
       >
         {children}

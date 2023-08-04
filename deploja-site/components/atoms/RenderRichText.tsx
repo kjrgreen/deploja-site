@@ -7,6 +7,7 @@ import {
 } from "@/@types/generated/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
+import Image from "next/image";
 
 const sizes: { [key in ITypesetFields["fontSize"]]: string } = {
   xs: "text-xs",
@@ -69,10 +70,10 @@ function getClasses(fields: ITypesetFields | undefined) {
     classes.push(colors[fields.color]);
   }
 
-  return classes.join(" ");
+  return ` ${classes.join(" ")}`;
 }
 function RenderRichText({ RichText }: { RichText: ICustomRichTextFields }) {
-  if (!RichText.richText) return null;
+  if (!RichText?.richText) return null;
 
   const options = {
     renderNode: {
@@ -139,9 +140,23 @@ function RenderRichText({ RichText }: { RichText: ICustomRichTextFields }) {
           {children}
         </p>
       ),
+      //hyperlink
+      ["hyperlink"]: (node: any, children: any) => (
+        <a className={"text-[blue] underline"} href={node.data.uri}>
+          {children}
+        </a>
+      ),
+      [BLOCKS.EMBEDDED_ASSET]: (node: any, children: any) => (
+        <div className={"relative w-full h-64 [&>*]:object-contain"}>
+          <Image
+            alt={node.data.target.fields.description}
+            src={`https:${node.data.target.fields.file.url}`}
+            fill={true}
+          />
+        </div>
+      ),
     },
   };
-
   return (
     <>
       {RichText.richText &&
