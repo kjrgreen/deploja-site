@@ -1,6 +1,7 @@
 import "./globals.css";
 
 import { Inter } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
 import { AnimatePresence } from "framer-motion";
 import { createClient } from "contentful";
 import {
@@ -69,6 +70,7 @@ export default async function RootLayout({
         />
       </head>
       <body className={inter.className}>
+        <NextTopLoader color={"#30c09d"} />
         {children}
         <Navigation navigationMenu={navigationMenu} />
         <footer className="footer p-12 lg:p-24 bg-baltic text-base-content pb-0 lg:pb-0">
@@ -88,24 +90,41 @@ export default async function RootLayout({
             </div>
           </div>
         </footer>
-        <footer className="footer p-12 lg:p-24 bg-baltic text-base-content sm:grid-flow-col">
+        <footer className="footer p-12 lg:px-24 lg:py-18 bg-baltic text-base-content sm:grid-flow-col">
           {footer.links?.map((link) => {
             const fields = link.fields as IColumnOfButtonsFields;
             return (
               <div key={link.sys.id}>
-                <span className="footer-title">{fields.title}</span>
-                {fields.buttons?.map((link) => {
-                  const fields = link.fields as IButtonFields;
-                  return (
-                    <Link
-                      className="link link-hover"
-                      href={fields.url}
-                      key={link.sys.id}
-                    >
-                      {fields.text}
-                    </Link>
-                  );
-                })}
+                {<span className="footer-title">{fields.title}</span>}
+                {footer.links?.length > 1 ? (
+                  fields.buttons?.map((link) => {
+                    const fields = link.fields as IButtonFields;
+                    return (
+                      <Link
+                        className="link link-hover"
+                        href={fields.url}
+                        key={link.sys.id}
+                      >
+                        {fields.text}
+                      </Link>
+                    );
+                  })
+                ) : (
+                  <div className={"flex flex-row gap-8"}>
+                    {fields.buttons?.map((link) => {
+                      const fields = link.fields as IButtonFields;
+                      return (
+                        <Link
+                          className="link link-hover"
+                          href={fields.url}
+                          key={link.sys.id}
+                        >
+                          {fields.text}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             );
           })}

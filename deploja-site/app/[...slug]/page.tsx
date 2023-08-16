@@ -213,8 +213,17 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
         switch (item.sys.contentType.sys.id) {
           case "customRichText": {
             const fields = item.fields as ICustomRichTextFields;
+            const background =
+              {
+                white: "bg-[white]",
+                dark: "bg-baltic",
+                green: "bg-mint",
+                gradient: gradientStyling,
+              }[fields.background] ?? "bg-[white]";
             return (
-              <div className={`${blockPadding} flex flex-col gap-2`}>
+              <div
+                className={`${blockPadding} flex flex-col gap-2 ${background}`}
+              >
                 <RenderRichText RichText={fields} />
               </div>
             );
@@ -317,7 +326,7 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
                 </div>
                 <div
                   className={
-                    "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 grid gap-x-12 lg:gap-x-18 xl:gap-x-24 gap-y-10 w-full  text-primary"
+                    "sm:mx-auto sm:w-auto grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 grid gap-x-12 lg:gap-x-18 xl:gap-x-24 gap-y-10 w-full text-primary"
                   }
                 >
                   {fields.offerings?.map((offering, id) => {
@@ -349,7 +358,7 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
                               <img
                                 src={"/long-arrow-right.svg"}
                                 className={
-                                  "h-auto absolute right-0 bottom-0 transform md:translate-y-12 md:w-32 hidden md:block"
+                                  "h-auto absolute right-0 bottom-0 transform md:translate-y-11 md:w-32 hidden md:block scale-50 translate-x-[-72px]"
                                 }
                               />
                             </p>
@@ -492,7 +501,7 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
                   >
                     <Image
                       src={`https:${fields.image?.fields.file.url}`}
-                      alt={fields.image?.fields.description}
+                      alt={fields.image?.fields.description ?? ""}
                       fill={true}
                     />
                   </div>
