@@ -96,7 +96,7 @@ export default async function RootLayout({
             return (
               <div key={link.sys.id}>
                 {<span className="footer-title">{fields.title}</span>}
-                {footer.links?.length ?? 0 > 1 ? (
+                {(footer.links?.length ?? 0) > 1 ? (
                   fields.buttons?.map((link) => {
                     const fields = link.fields as IButtonFields;
                     return (
