@@ -5,7 +5,7 @@
   "scripts": {
     "predev": "contentful-typescript-codegen --output @types/generated/contentful.d.ts",
     "dev": "next dev",
-    "prebuild": "contentful-typescript-codegen --output @types/generated/contentful.d.ts",
+    "prebuild": "prebuild.js && contentful-typescript-codegen --output @types/generated/contentful.d.ts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
