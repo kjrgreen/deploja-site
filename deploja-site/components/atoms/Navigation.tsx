@@ -24,7 +24,7 @@ function Navigation({
 
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [y, setY] = useState(window?.scrollY ?? 0);
+  const [y, setY] = useState(isClient ? window?.scrollY ?? 0 : 0);
 
   //When next router changes, close the drawer and save the scroll position
 
