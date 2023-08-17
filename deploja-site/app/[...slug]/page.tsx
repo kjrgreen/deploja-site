@@ -29,7 +29,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons/faPhone";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import Head from "next/head";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata /*, ResolvingMetadata*/ } from "next";
 
 const client = createClient({
   space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID as string,
@@ -46,7 +46,7 @@ export async function generateMetadata(
     searchParams: any;
     params: { slug: string[] };
   },
-  parent: ResolvingMetadata
+  parent: any //ResolvingMetadata
 ): Promise<Metadata> {
   const page = await client
     .getEntries({
