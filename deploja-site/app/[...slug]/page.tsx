@@ -212,12 +212,12 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
       {page.content?.map((item, index) => {
         switch (item.sys.contentType.sys.id) {
           case "customRichText": {
-            const fields = item.fields as ICustomRichTextFields;
+            const fields = item.fields! as ICustomRichTextFields;
             const background =
               {
                 white: "bg-[white]",
                 dark: "bg-baltic",
-                green: "bg-mint",
+                green: "bg-wedgewood",
                 gradient: gradientStyling,
               }[fields.background] ?? "bg-[white]";
             return (
