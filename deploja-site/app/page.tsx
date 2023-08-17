@@ -6,7 +6,6 @@ export async function generateMetadata() {
 }
 
 export const revalidate = 60;
-export const dynamic = "force-dynamic";
 
 const index = ({ params }: { params: any }) =>
   Home({

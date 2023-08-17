@@ -37,7 +37,6 @@ const client = createClient({
 });
 
 export const revalidate = 60; //TODO: refactor
-export const dynamic = "force-dynamic";
 
 export async function generateMetadata(
   {
