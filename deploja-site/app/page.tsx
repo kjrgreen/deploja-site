@@ -5,7 +5,7 @@ export async function generateMetadata() {
   return meta({ params: { slug: [] }, searchParams: "" }, {} as any);
 }
 
-export const revalidate = 60;
+export const revalidate = 0;
 
 const index = ({ params }: { params: any }) =>
   Home({
