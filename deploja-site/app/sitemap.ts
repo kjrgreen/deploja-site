@@ -1,4 +1,4 @@
-import { MetadataRoute } from "next";
+//import { MetadataRoute } from "next";
 import { IPage } from "@/@types/generated/contentful";
 
 const batchedPromises = async (
@@ -16,7 +16,7 @@ const batchedPromises = async (
   return results;
 };
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+export default async function sitemap(): Promise<any /*MetadataRoute.Sitemap*/> {
   const response = await fetch(
     `https://cdn.contentful.com/spaces/${process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID}/environments/${process.env.NEXT_PUBLIC_CONTENTFUL_ENVIRONMENT}/entries?access_token=${process.env.CONTENTFUL_ACCESS_TOKEN}&content_type=page&locale=${process.env.NEXT_PUBLIC_LOCALE}`,
     {
