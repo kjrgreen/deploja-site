@@ -86,7 +86,7 @@ export async function generateMetadata(
       description: page.seoDescription,
       images: [
         {
-          url: page.seoImage.fields.file.url,
+          url: `https:${page.seoImage.fields.file.url}`,
         },
       ],
       locale: process.env.NEXT_PUBLIC_LOCALE,
