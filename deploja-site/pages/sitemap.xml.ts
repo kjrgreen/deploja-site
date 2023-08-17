@@ -1,5 +1,6 @@
 //import { MetadataRoute } from "next";
 import { IPage } from "@/@types/generated/contentful";
+import { GetServerSideProps } from "next";
 
 const batchedPromises = async (
   promises: (() => Promise<any>)[],
@@ -16,7 +17,7 @@ const batchedPromises = async (
   return results;
 };
 
-export default async function sitemap(): Promise<any /*MetadataRoute.Sitemap*/> {
+async function sitemap(): Promise<any /*MetadataRoute.Sitemap*/> {
   const response = await fetch(
     `https://cdn.contentful.com/spaces/${process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID}/environments/${process.env.NEXT_PUBLIC_CONTENTFUL_ENVIRONMENT}/entries?access_token=${process.env.CONTENTFUL_ACCESS_TOKEN}&content_type=page&locale=${process.env.NEXT_PUBLIC_LOCALE}`,
     {
@@ -50,3 +51,29 @@ export default async function sitemap(): Promise<any /*MetadataRoute.Sitemap*/> 
   );
   return (await batchedPromises(promises, 5, 1000)).filter((p) => p);
 }
+
+const Sitemap: React.FC = () => null;
+
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  if (res) {
+    res.setHeader("Content-Type", "text/xml");
+    res.write(`<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    ${(await sitemap())
+      .map(
+        (page: { url: string; lastModified: Date }) =>
+          `<url>
+                <loc>${page.url}</loc>
+                <lastmod>${page.lastModified}</lastmod>
+                </url>`
+      )
+      .join("")}
+    </urlset>`);
+    res.end();
+  }
+  return {
+    props: {},
+  };
+};
+
+export default Sitemap;
