@@ -137,7 +137,7 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
       locale: process.env.NEXT_PUBLIC_LOCALE,
     })
     .then((response) => {
-      return (response.items[0] as ITopMenu).fields.entries;
+      return (response.items[0] as ITopMenu).fields.entries ?? [];
     });
 
   //Fetch page based on slug
@@ -213,13 +213,12 @@ export default async function Home({ params }: { params: { slug: string[] } }) {
         switch (item.sys.contentType.sys.id) {
           case "customRichText": {
             const fields = item.fields! as ICustomRichTextFields;
-            const background =
-              {
-                white: "bg-[white]",
-                dark: "bg-baltic",
-                green: "bg-wedgewood",
-                gradient: gradientStyling,
-              }[fields.background] ?? "bg-[white]";
+            const background = {
+              white: "bg-[white]",
+              dark: "bg-baltic",
+              green: "bg-wedgewood",
+              gradient: gradientStyling,
+            }[fields.background ?? "white"];
             return (
               <div
                 className={`${blockPadding} flex flex-col gap-2 ${background}`}
