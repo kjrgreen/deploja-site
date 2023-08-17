@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, Suspense } from "react";
 import { Modal } from "@/components/atoms/Modal";
 import {
   IButtonFields,
@@ -54,7 +54,7 @@ function Navigation({
   }, [handleNavigation]);
 
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <div
         id={"headerFixed"}
         className={"text-[white] pointer-events-none fixed " + headerStyling}
@@ -155,7 +155,7 @@ function Navigation({
           </div>
         </div>
       </Modal>
-    </>
+    </Suspense>
   );
 }
 
