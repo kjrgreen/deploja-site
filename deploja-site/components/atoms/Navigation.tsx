@@ -23,7 +23,6 @@ function Navigation({
   const [isOpen, setIsOpen] = useState(false);
 
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [y, setY] = useState(isClient ? window?.scrollY ?? 0 : 0);
 
   //When next router changes, close the drawer and save the scroll position
@@ -32,7 +31,7 @@ function Navigation({
     if (!isClient) return;
     setIsOpen(false);
     setY(window.scrollY);
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
   const handleNavigation = useCallback(
     (e: any) => {
@@ -54,7 +53,7 @@ function Navigation({
   }, [handleNavigation]);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <>
       <div
         id={"headerFixed"}
         className={"text-[white] pointer-events-none fixed " + headerStyling}
@@ -155,7 +154,7 @@ function Navigation({
           </div>
         </div>
       </Modal>
-    </Suspense>
+    </>
   );
 }
 
