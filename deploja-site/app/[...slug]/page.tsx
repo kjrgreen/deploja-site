@@ -35,7 +35,10 @@ const client = createClient({
   space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID as string,
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN as string,
 });
+
 export const revalidate = 60; //TODO: refactor
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata(
   {
     params,
