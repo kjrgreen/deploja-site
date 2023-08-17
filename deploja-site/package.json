@@ -31,7 +31,7 @@
     "eslint": "8.22.0",
     "eslint-config-next": "13.4.2",
     "framer-motion": "^10.12.11",
-    "next": "13.4.9",
+    "next": "^13.4.17",
     "nextjs-toploader": "^1.4.2",
     "postcss": "8.4.23",
     "pure-react-carousel": "^1.30.1",
