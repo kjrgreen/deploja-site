@@ -11,6 +11,7 @@ import Link from "next/link";
 import RenderRichText from "@/components/atoms/RenderRichText";
 import { useRouter } from "next/router";
 import { usePathname, useSearchParams } from "next/navigation";
+import { useIsClient } from "usehooks-ts";
 
 const headerStyling = "w-full z-10 top-0 p-2"; //TODO: refactor
 function Navigation({
@@ -18,6 +19,7 @@ function Navigation({
 }: {
   navigationMenu: INavigationMenuFields;
 }) {
+  const isClient = useIsClient();
   const [isOpen, setIsOpen] = useState(false);
 
   const pathname = usePathname();
@@ -27,12 +29,14 @@ function Navigation({
   //When next router changes, close the drawer and save the scroll position
 
   useEffect(() => {
+    if (!isClient) return;
     setIsOpen(false);
     setY(window.scrollY);
   }, [pathname, searchParams]);
 
   const handleNavigation = useCallback(
     (e: any) => {
+      if (!isClient) return;
       const window = e.currentTarget;
       setY(window.scrollY);
     },
@@ -40,6 +44,7 @@ function Navigation({
   );
 
   useEffect(() => {
+    if (!isClient) return;
     setY(window.scrollY);
     window.addEventListener("scroll", handleNavigation);
 
