@@ -36,7 +36,7 @@ const client = createClient({
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN as string,
 });
 
-export const revalidate = 60; //TODO: refactor
+export const revalidate = 0; //TODO: refactor
 
 export async function generateMetadata(
   {
