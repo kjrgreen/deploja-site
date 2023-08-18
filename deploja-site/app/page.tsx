@@ -6,7 +6,6 @@ export async function generateMetadata() {
 }
 
 export const revalidate = 60;
-export const runtime = "edge";
 
 const index = ({ params }: { params: any }) =>
   Home({
