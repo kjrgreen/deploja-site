@@ -37,6 +37,7 @@ const client = createClient({
 });
 
 export const revalidate = 60; //TODO: refactor
+export const runtime = "edge";
 
 export async function generateMetadata(
   {
